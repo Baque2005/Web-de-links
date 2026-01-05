@@ -16,11 +16,11 @@ app.use(express.json());
 // Servir archivos estáticos del frontend
 import path from 'path';
 const __dirname = process.cwd();
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 // Para cualquier ruta que no sea API, devolver el index.html del frontend
 app.get(/^\/(?!api).*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // Obtener todos los enlaces
