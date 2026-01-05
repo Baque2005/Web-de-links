@@ -13,6 +13,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Servir archivos estáticos del frontend
+import path from 'path';
+const __dirname = process.cwd();
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Para cualquier ruta que no sea API, devolver el index.html del frontend
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Obtener todos los enlaces
 app.get('/links', async (req, res) => {
   const { data, error } = await supabase.from('links').select('*');
